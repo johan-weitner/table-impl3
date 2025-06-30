@@ -1,0 +1,14 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+
+# Storybook
+.storybook
+
+# Vite
+.vite
+
+# OS files
+.DS_Store
