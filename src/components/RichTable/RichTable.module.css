@@ -1,0 +1,25 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.th, .td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.thead {
+  background-color: #f4f4f4;
+}
+
+.virtualContainer {
+  height: 400px;
+  overflow-y: auto;
+}
+
+.paginationControls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
