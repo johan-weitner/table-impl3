@@ -1,0 +1,1 @@
+export { RichTable } from './RichTable';

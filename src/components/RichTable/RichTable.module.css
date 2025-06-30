@@ -21,5 +21,38 @@
   margin-top: 10px;
   display: flex;
   justify-content: center;
+  gap: 8px;
+}
+
+.paginationControls button {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.paginationControls button:hover {
+  background: #f0f0f0;
+}
+
+.paginationControls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.resizer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background: rgba(0, 0, 0, 0.1);
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+}
+
+.resizer:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
 

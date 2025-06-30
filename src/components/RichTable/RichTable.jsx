@@ -150,8 +150,21 @@ export const RichTable = ({
 
       {enablePagination && (
         <div className={styles.paginationControls}>
-          <button onClick={() => table.previousPage()}>Previous</button>
-          <button onClick={() => table.nextPage()}>Next</button>
+          <button 
+            onClick={() => table.previousPage()} 
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </button>
+          <span>
+            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+          </span>
+          <button 
+            onClick={() => table.nextPage()} 
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </button>
         </div>
       )}
     </div>
