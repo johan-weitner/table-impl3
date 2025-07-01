@@ -1,28 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react'
 import {
   useReactTable,
   getCoreRowModel,
   getSortedRowModel,
   getPaginationRowModel,
-} from '@tanstack/react-table';
-import { useVirtualizer } from '@tanstack/react-virtual';
-import { flexRender } from '@tanstack/react-table';
-import { getColumns } from '../../table/columns';
+  flexRender,
+} from '@tanstack/react-table'
+import { useVirtualizer } from '@tanstack/react-virtual'
+import PropTypes from 'prop-types'
+import { getColumns } from '../../table/columns'
+import styles from './RichTable.module.css'
 
-import styles from './RichTable.module.css';
-
-export const RichTable = ({
-  data,
-  enableSorting = false,
-  enablePagination = false,
+export const RichTable = ({ 
+  data, 
+  enableSorting = false, 
+  enablePagination = false, 
   enableColumnVisibility = false,
   enableColumnSizing = false,
-  enableVirtualization = false,
+  enableVirtualization = false
 }) => {
-  const [sorting, setSorting] = React.useState([]);
-  const [columnVisibility, setColumnVisibility] = React.useState({});
-  const [columnSizing, setColumnSizing] = React.useState({});
+  const [sorting, setSorting] = useState([])
+  const [columnVisibility, setColumnVisibility] = useState({})
+  const [columnSizing, setColumnSizing] = useState({})
 
   const table = useReactTable({
     data,
@@ -60,7 +59,7 @@ export const RichTable = ({
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    th 
+                    <th 
                       key={header.id}
                       style={{
                         width: enableColumnSizing ? header.getSize() : undefined,
@@ -68,7 +67,7 @@ export const RichTable = ({
                         cursor: enableSorting && header.column.getCanSort() ? 'pointer' : 'default',
                       }}
                       onClick={enableSorting ? header.column.getToggleSortingHandler() : undefined}
-                    
+                    >
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                       {enableSorting && ({
                         asc: ' 🔼',
@@ -81,7 +80,7 @@ export const RichTable = ({
                           className={styles.resizer}
                         />
                       )}
-                    /th
+                    </th>
                   ))}
                 </tr>
               ))}
@@ -106,9 +105,9 @@ export const RichTable = ({
         <table className={styles.table}>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  th 
+                  <th 
                     key={header.id}
                     style={{
                       width: enableColumnSizing ? header.getSize() : undefined,
@@ -116,7 +115,7 @@ export const RichTable = ({
                       cursor: enableSorting && header.column.getCanSort() ? 'pointer' : 'default',
                     }}
                     onClick={enableSorting ? header.column.getToggleSortingHandler() : undefined}
-                  
+                  >
                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     {enableSorting && ({
                       asc: ' 🔼',
@@ -129,7 +128,7 @@ export const RichTable = ({
                         className={styles.resizer}
                       />
                     )}
-                  /th
+                  </th>
                 ))}
               </tr>
             ))}
@@ -179,4 +178,3 @@ RichTable.propTypes = {
   enableColumnSizing: PropTypes.bool,
   enableVirtualization: PropTypes.bool,
 };
-
