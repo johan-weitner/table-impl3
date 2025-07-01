@@ -42,13 +42,13 @@ export const RichTable = ({
 
   const parentRef = React.useRef();
 
-  const virtualizer = useVirtualizer({
-    parentRef,
+  const virtualizer = enableVirtualization ? useVirtualizer({
     count: table.getRowModel().rows.length,
+    getScrollElement: () => parentRef.current,
     estimateSize: () => 35,
-  });
+  }) : null;
   
-  const virtualRows = virtualizer.getVirtualItems();
+  const virtualRows = virtualizer ? virtualizer.getVirtualItems() : [];
 
   return (
     <div>
