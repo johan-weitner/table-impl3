@@ -1,6 +1,4 @@
-import { ThinTable } from './components/ThinTable/ThinTable';
-import { RichTable } from './components/RichTable/RichTable';
-import { TreeTable } from './components/TreeTable/TreeTable';
+import { ThinTable, RichTable, TreeTable } from './components/Table';
 import { mockLogs } from './data/mockLogs';
 import './App.css';
 

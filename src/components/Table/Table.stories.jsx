@@ -1,7 +1,5 @@
-import { ThinTable } from './ThinTable/ThinTable';
-import { RichTable } from './RichTable/RichTable';
-import { TreeTable } from './TreeTable/TreeTable';
-import { mockLogs } from '../data/mockLogs';
+import { ThinTable, RichTable, TreeTable } from './index';
+import { mockLogs } from '../../data/mockLogs';
 
 export default {
   title: 'Tables',
