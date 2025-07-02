@@ -6,8 +6,7 @@ import {
   getExpandedRowModel,
   flexRender
 } from '@tanstack/react-table';
-import { getColumns } from '../../../table/columns';
-import { createTreeData } from '../../../data/treeData.js';
+import { getColumns, createTreeData } from '../helpers';
 import styles from './TreeTable.module.css';
 
 export const TreeTable = () => {

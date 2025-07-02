@@ -1,5 +1,5 @@
 import { ThinTable, RichTable, TreeTable } from './components/Table';
-import { mockLogs } from './data/mockLogs';
+import { mockLogs } from './components/Table/helpers';
 import './App.css';
 
 function App() {

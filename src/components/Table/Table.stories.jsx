@@ -1,5 +1,5 @@
 import { ThinTable, RichTable, TreeTable } from './index';
-import { mockLogs } from '../../data/mockLogs';
+import { mockLogs } from './helpers';
 
 export default {
   title: 'Tables',

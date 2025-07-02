@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-table'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import PropTypes from 'prop-types'
-import { getColumns } from '../../../table/columns'
+import { getColumns } from '../helpers'
 import styles from './RichTable.module.css'
 
 export const RichTable = ({ 
