@@ -4,11 +4,11 @@ import {
   getCoreRowModel,
   getSortedRowModel,
   getPaginationRowModel,
-  flexRender,
 } from '@tanstack/react-table'
-import { useVirtualizer } from '@tanstack/react-virtual'
 import PropTypes from 'prop-types'
 import { getColumns } from '../helpers'
+import { VirtualRichTable } from './VirtualRichTable'
+import { StandardRichTable } from './StandardRichTable'
 import styles from './RichTable.module.css'
 
 export const RichTable = ({ 
@@ -40,111 +40,20 @@ export const RichTable = ({
     columnResizeMode: enableColumnSizing ? 'onChange' : undefined,
   });
 
-  const parentRef = React.useRef();
-
-  const virtualizer = enableVirtualization ? useVirtualizer({
-    count: table.getRowModel().rows.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 35,
-  }) : null;
-  
-  const virtualRows = virtualizer ? virtualizer.getVirtualItems() : [];
-
   return (
     <div>
       {enableVirtualization ? (
-        <div ref={parentRef} className={styles.virtualContainer}>
-          <table className={styles.table}>
-            <thead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th 
-                      key={header.id}
-                      style={{
-                        width: enableColumnSizing ? header.getSize() : undefined,
-                        position: 'relative',
-                        cursor: enableSorting && header.column.getCanSort() ? 'pointer' : 'default',
-                      }}
-                      onClick={enableSorting ? header.column.getToggleSortingHandler() : undefined}
-                    >
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                      {enableSorting && ({
-                        asc: ' 🔼',
-                        desc: ' 🔽',
-                      }[header.column.getIsSorted()] ?? null)}
-                      {enableColumnSizing && (
-                        <div
-                          onMouseDown={header.getResizeHandler()}
-                          onTouchStart={header.getResizeHandler()}
-                          className={styles.resizer}
-                        />
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {virtualRows.map((virtualRow) => {
-                const row = table.getRowModel().rows[virtualRow.index];
-                return (
-                  <tr key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <VirtualRichTable 
+          table={table}
+          enableSorting={enableSorting}
+          enableColumnSizing={enableColumnSizing}
+        />
       ) : (
-        <table className={styles.table}>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th 
-                    key={header.id}
-                    style={{
-                      width: enableColumnSizing ? header.getSize() : undefined,
-                      position: 'relative',
-                      cursor: enableSorting && header.column.getCanSort() ? 'pointer' : 'default',
-                    }}
-                    onClick={enableSorting ? header.column.getToggleSortingHandler() : undefined}
-                  >
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                    {enableSorting && ({
-                      asc: ' 🔼',
-                      desc: ' 🔽',
-                    }[header.column.getIsSorted()] ?? null)}
-                    {enableColumnSizing && (
-                      <div
-                        onMouseDown={header.getResizeHandler()}
-                        onTouchStart={header.getResizeHandler()}
-                        className={styles.resizer}
-                      />
-                    )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <StandardRichTable 
+          table={table}
+          enableSorting={enableSorting}
+          enableColumnSizing={enableColumnSizing}
+        />
       )}
 
       {enablePagination && (
