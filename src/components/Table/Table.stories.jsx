@@ -1,5 +1,5 @@
 import { ThinTable, RichTable, TreeTable } from './index';
-import { mockLogs } from './helpers';
+import { mockLogs, createTreeData } from './helpers';
 
 export default {
   title: 'Tables',
@@ -21,4 +21,4 @@ export const RichVirtualised = () => (
   />
 );
 
-export const Tree = () => <TreeTable data={mockLogs.slice(0, 100)} />;
+export const Tree = () => <TreeTable data={createTreeData()} />;

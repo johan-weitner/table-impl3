@@ -5,15 +5,16 @@ import {
   getExpandedRowModel,
   flexRender
 } from '@tanstack/react-table';
-import { getColumns, createTreeData } from '../helpers';
+import { getColumns } from '../helpers';
 import styles from './TreeTable.module.css';
 
 /**
  * A hierarchical table component with expandable rows that demonstrates tree data structure
+ * @param {Object} props - Component props
+ * @param {Array<Object>} props.data - Array of objects containing hierarchical table data with optional subRows property
  * @returns {JSX.Element} The rendered tree table component
  */
-export const TreeTable = () => {
-  const data = createTreeData();
+export const TreeTable = ({ data }) => {
   const table = useReactTable({
     data,
     columns: [

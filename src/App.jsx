@@ -1,5 +1,5 @@
 import { ThinTable, RichTable, TreeTable } from './components/Table';
-import { mockLogs } from './components/Table/helpers';
+import { mockLogs, createTreeData } from './components/Table/helpers';
 import './App.css';
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
           <p>Hierarchical table with expandable rows</p>
         </summary>
         <div className="table-container">
-          <TreeTable />
+          <TreeTable data={createTreeData()} />
         </div>
       </details>
     </div>
