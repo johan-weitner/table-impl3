@@ -12,3 +12,20 @@
   background-color: #f4f4f4;
 }
 
+.expanderButton {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  min-width: 24px;
+  height: 24px;
+}
+
+.expanderButton:hover {
+  background-color: #e9ecef;
+}
+

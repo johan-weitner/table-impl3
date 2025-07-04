@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -15,6 +15,9 @@ import styles from './TreeTable.module.css';
  * @returns {JSX.Element} The rendered tree table component
  */
 export const TreeTable = ({ data }) => {
+  console.log('TreeTable data:', data.slice(0, 2)); // Debug: check first 2 rows
+  const [expanded, setExpanded] = useState({});
+  
   const table = useReactTable({
     data,
     columns: [
@@ -24,15 +27,8 @@ export const TreeTable = ({ data }) => {
         cell: ({ row }) =>
           row.getCanExpand() ? (
             <button
-              {...{
-                onClick: row.getToggleExpandedHandler(),
-                style: {
-                  cursor: 'pointer',
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  outline: 'none'
-                }
-              }}
+              className={styles.expanderButton}
+              onClick={row.getToggleExpandedHandler()}
             >
               {row.getIsExpanded() ? '−' : '+'}
             </button>
@@ -40,8 +36,13 @@ export const TreeTable = ({ data }) => {
       },
       ...getColumns(),
     ],
+    state: {
+      expanded,
+    },
+    onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
+    getSubRows: row => row.subRows,
   });
 
   return (
@@ -50,7 +51,7 @@ export const TreeTable = ({ data }) => {
         {table.getHeaderGroups().map(headerGroup => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map(header => (
-              <th key={header.id} style={{ padding: "8px" }}>
+              <th key={header.id} className={styles.th}>
                 {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
               </th>
             ))}
@@ -58,27 +59,22 @@ export const TreeTable = ({ data }) => {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map(row => (
-          <React.Fragment key={row.id}>
-            <tr>
-              {row.getVisibleCells().map(cell => (
-                <td key={cell.id} style={{ padding: "8px" }}>
+        {table.getRowModel().rows.map(row => {
+          console.log(`Row ${row.id}: canExpand=${row.getCanExpand()}, depth=${row.depth}, subRows=${row.original.subRows?.length || 0}`);
+          return (
+            <tr key={row.id} data-depth={row.depth}>
+              {row.getVisibleCells().map((cell, index) => (
+                <td 
+                  key={cell.id} 
+                  className={styles.td}
+                  style={index === 1 ? { paddingLeft: `${row.depth * 20 + 8}px` } : undefined}
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
             </tr>
-            {row.getIsExpanded() &&
-              row.subRows.map(subRow => (
-                <tr key={subRow.id}>
-                  {subRow.getVisibleCells().map(cell => (
-                    <td key={cell.id} style={{ padding: "8px" }}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-          </React.Fragment>
-        ))}
+          );
+        })}
       </tbody>
     </table>
   );

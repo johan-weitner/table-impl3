@@ -2,7 +2,7 @@ import { ThinTable, RichTable, TreeTable } from './index';
 import { mockLogs, createTreeData } from './helpers';
 
 export default {
-  title: 'Tables',
+  title: 'Components/Tables',
   component: ThinTable,
 };
 

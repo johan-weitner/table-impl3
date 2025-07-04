@@ -1,32 +1,26 @@
 import { mockLogs } from './mockLogs.js';
 
 export const createTreeData = () => {
-  // Take first 200 rows and nest every 5th as child demo
-  const first200 = mockLogs.slice(0, 200);
+  // Take first 50 rows and create a simpler hierarchical structure
+  const first50 = mockLogs.slice(0, 50);
   const treeData = [];
   
-  for (let i = 0; i < first200.length; i++) {
-    const row = { ...first200[i] };
+  for (let i = 0; i < first50.length; i += 5) {
+    // Every 5th row becomes a parent
+    const parentRow = { ...first50[i] };
+    parentRow.subRows = [];
     
-    // Every 5th row becomes a parent with subRows
-    if ((i + 1) % 5 === 0) {
-      row.subRows = [];
-      
-      // Add 2-3 child rows to each parent
-      const childCount = Math.floor(Math.random() * 2) + 2; // 2 or 3 children
-      for (let j = 0; j < childCount; j++) {
-        const childIndex = i + j + 1;
-        if (childIndex < first200.length) {
-          row.subRows.push({
-            ...first200[childIndex],
-            logEntryNumber: `${row.logEntryNumber}.${j + 1}`,
-            description: `Child ${j + 1} of ${row.description}`,
-          });
-        }
-      }
+    // Add the next 2-3 rows as children if they exist
+    for (let j = 1; j <= 3 && (i + j) < first50.length; j++) {
+      const childRow = { 
+        ...first50[i + j],
+        logEntryNumber: `${parentRow.logEntryNumber}.${j}`,
+        description: `Child ${j} of ${parentRow.description}`,
+      };
+      parentRow.subRows.push(childRow);
     }
     
-    treeData.push(row);
+    treeData.push(parentRow);
   }
   
   return treeData;
