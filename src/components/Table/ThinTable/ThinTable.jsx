@@ -4,9 +4,14 @@ import {
   getCoreRowModel,
   flexRender,
 } from '@tanstack/react-table'
-import PropTypes from 'prop-types'
 import styles from './ThinTable.module.css'
 
+/**
+ * A simple table component with minimal features that auto-generates columns from data
+ * @param {Object} props - Component props
+ * @param {Array<Object>} props.data - Array of objects containing the table data
+ * @returns {JSX.Element} The rendered table component
+ */
 export const ThinTable = ({ data }) => {
   // Automatically generate columns from the first data row if data exists
   const columns = useMemo(() => {
@@ -70,8 +75,4 @@ export const ThinTable = ({ data }) => {
       </tbody>
     </table>
   )
-}
-
-ThinTable.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

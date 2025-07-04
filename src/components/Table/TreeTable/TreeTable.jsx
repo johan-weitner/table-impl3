@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   useReactTable,
   getCoreRowModel,
@@ -9,6 +8,10 @@ import {
 import { getColumns, createTreeData } from '../helpers';
 import styles from './TreeTable.module.css';
 
+/**
+ * A hierarchical table component with expandable rows that demonstrates tree data structure
+ * @returns {JSX.Element} The rendered tree table component
+ */
 export const TreeTable = () => {
   const data = createTreeData();
   const table = useReactTable({

@@ -1,10 +1,17 @@
 import React from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { flexRender } from '@tanstack/react-table'
-import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import styles from './RichTable.module.css'
 
+/**
+ * Virtualized version of the rich table component for handling large datasets efficiently
+ * @param {Object} props - Component props
+ * @param {Object} props.table - TanStack table instance
+ * @param {boolean} [props.enableSorting] - Enable column sorting functionality
+ * @param {boolean} [props.enableColumnSizing] - Enable column resizing functionality
+ * @returns {JSX.Element} The rendered virtualized table component
+ */
 export const VirtualRichTable = ({ 
   table, 
   enableSorting, 
@@ -75,10 +82,4 @@ export const VirtualRichTable = ({
       </table>
     </div>
   )
-}
-
-VirtualRichTable.propTypes = {
-  table: PropTypes.object.isRequired,
-  enableSorting: PropTypes.bool,
-  enableColumnSizing: PropTypes.bool,
 }

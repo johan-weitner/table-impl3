@@ -1,9 +1,16 @@
 import React from 'react'
 import { flexRender } from '@tanstack/react-table'
-import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import styles from './RichTable.module.css'
 
+/**
+ * Standard (non-virtualized) version of the rich table component
+ * @param {Object} props - Component props
+ * @param {Object} props.table - TanStack table instance
+ * @param {boolean} [props.enableSorting] - Enable column sorting functionality
+ * @param {boolean} [props.enableColumnSizing] - Enable column resizing functionality
+ * @returns {JSX.Element} The rendered table component
+ */
 export const StandardRichTable = ({ 
   table, 
   enableSorting, 
@@ -59,10 +66,4 @@ export const StandardRichTable = ({
       </tbody>
     </table>
   )
-}
-
-StandardRichTable.propTypes = {
-  table: PropTypes.object.isRequired,
-  enableSorting: PropTypes.bool,
-  enableColumnSizing: PropTypes.bool,
 }

@@ -5,12 +5,22 @@ import {
   getSortedRowModel,
   getPaginationRowModel,
 } from '@tanstack/react-table'
-import PropTypes from 'prop-types'
 import { getColumns } from '../helpers'
 import { VirtualRichTable } from './VirtualRichTable'
 import { StandardRichTable } from './StandardRichTable'
 import styles from './RichTable.module.css'
 
+/**
+ * A feature-rich table component with optional sorting, pagination, column visibility, sizing, and virtualization
+ * @param {Object} props - Component props
+ * @param {Array<Object>} props.data - Array of objects containing the table data
+ * @param {boolean} [props.enableSorting=false] - Enable column sorting functionality
+ * @param {boolean} [props.enablePagination=false] - Enable table pagination
+ * @param {boolean} [props.enableColumnVisibility=false] - Enable column show/hide functionality
+ * @param {boolean} [props.enableColumnSizing=false] - Enable column resizing functionality
+ * @param {boolean} [props.enableVirtualization=false] - Enable row virtualization for large datasets
+ * @returns {JSX.Element} The rendered table component
+ */
 export const RichTable = ({ 
   data, 
   enableSorting = false, 
@@ -77,13 +87,4 @@ export const RichTable = ({
       )}
     </div>
   );
-};
-
-RichTable.propTypes = {
-  data: PropTypes.array.isRequired,
-  enableSorting: PropTypes.bool,
-  enablePagination: PropTypes.bool,
-  enableColumnVisibility: PropTypes.bool,
-  enableColumnSizing: PropTypes.bool,
-  enableVirtualization: PropTypes.bool,
 };
