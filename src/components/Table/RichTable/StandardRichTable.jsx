@@ -1,6 +1,7 @@
 import React from 'react'
 import { flexRender } from '@tanstack/react-table'
 import PropTypes from 'prop-types'
+import clsx from 'clsx'
 import styles from './RichTable.module.css'
 
 export const StandardRichTable = ({ 
@@ -16,10 +17,15 @@ export const StandardRichTable = ({
             {headerGroup.headers.map((header) => (
               <th 
                 key={header.id}
+                className={clsx(
+                  styles.th,
+                  {
+                    [styles.sortable]: enableSorting && header.column.getCanSort(),
+                    [styles.resizable]: enableColumnSizing,
+                  }
+                )}
                 style={{
                   width: enableColumnSizing ? header.getSize() : undefined,
-                  position: 'relative',
-                  cursor: enableSorting && header.column.getCanSort() ? 'pointer' : 'default',
                 }}
                 onClick={enableSorting ? header.column.getToggleSortingHandler() : undefined}
               >
@@ -44,7 +50,7 @@ export const StandardRichTable = ({
         {table.getRowModel().rows.map((row) => (
           <tr key={row.id}>
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>
+              <td key={cell.id} className={styles.td}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}

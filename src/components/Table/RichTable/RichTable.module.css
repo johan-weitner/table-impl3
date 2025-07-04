@@ -8,6 +8,18 @@
   border: 1px solid #ddd;
 }
 
+.th {
+  position: relative;
+}
+
+.sortable {
+  cursor: pointer;
+}
+
+.resizable {
+  /* Additional styles for resizable columns if needed */
+}
+
 .thead {
   background-color: #f4f4f4;
 }
